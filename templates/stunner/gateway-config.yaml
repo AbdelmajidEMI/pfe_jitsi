@@ -1,0 +1,12 @@
+apiVersion: stunner.l7mp.io/v1alpha1
+kind: GatewayConfig
+metadata:
+  name: {{ .Values.stunner.gatewayConfig.name | default "stunner-gatewayconfig" }}
+spec:
+  realm: {{ .Values.stunner.realm | default "stunner.local" }}
+  logLevel: {{ .Values.stunner.logLevel | default "all:DEBUG" }}
+  authRef:
+    name: {{ .Values.stunner.auth.secretName | default "stunner-auth-secret" }}
+    namespace: {{ .Release.Namespace }}
+  loadBalancerServiceAnnotations:
+    {{- toYaml .Values.stunner.serviceAnnotations | nindent 4 }}

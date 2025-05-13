@@ -1,0 +1,10 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: {{ .Values.stunner.gateway.name | default "udp-gateway" }}
+spec:
+  gatewayClassName: {{ .Values.stunner.gatewayClass.name | default "stunner-gatewayclass" }}
+  listeners:
+    - name: {{ .Values.stunner.gateway.listenerName | default "udp-listener" }}
+      port: {{ .Values.stunner.gateway.port | default 3478 }}
+      protocol: TURN-UDP

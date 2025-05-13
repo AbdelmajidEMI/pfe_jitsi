@@ -17,6 +17,15 @@ global:
     #      name: '{{ include "prosody.fullname" . }}-overrides'
     #      optional: true
 
+turn:
+  enabled: true
+  host: "<stunner-public-ip>"  # STUNner gateway service
+  port: 3478
+  transport: "udp"
+  credentials:
+    secret: "stunner-auth-secret"  # Reference to existing secret
+    secretKey: "secret"            # Key in the secret containing shared secret
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -25,9 +34,9 @@ enableAuth: false
 enableGuests: true
 # Where Jitsi Web UI is made available
 # such as jitsi.example.com
-publicURL: ""
+publicURL: www.coursplus.ma
 
-tz: Europe/Amsterdam
+tz: usa/us-east-1
 
 image:
   pullPolicy: IfNotPresent
@@ -45,10 +54,10 @@ image:
 websockets:
   ## Colibri (JVB signalling):
   colibri:
-    enabled: false
+    enabled: true
   ## XMPP (Prosody signalling):
   xmpp:
-    enabled: false
+    enabled: true
 
 web:
   replicaCount: 1
@@ -77,40 +86,33 @@ web:
   service:
     type: ClusterIP
     port: 80
-    ## If you want to expose the Jitsi Web service directly
-    #  (bypassing the Ingress Controller), use this:
-    #
-    # type: NodePort
-    # nodePort: 30580
-    # port: 80
     externalIPs: []
 
   ingress:
     enabled: false
-    # ingressClassName: "nginx-ingress-0"
-    annotations: {}
-      # kubernetes.io/tls-acme: "true"
+    ingressClassName: "alb"
+    annotations:
+      alb.ingress.kubernetes.io/load-balancer-name: prod-coursplus-eks-cluster-load
+      alb.ingress.kubernetes.io/ip-address-type: ipv4
+      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+      # Set HTTP to HTTPS redirects. Every HTTP listener configured will be redirected to below mentioned port over HTTPS.
+      alb.ingress.kubernetes.io/ssl-redirect: '443'
+      alb.ingress.kubernetes.io/target-type: ip
+      external-dns.alpha.kubernetes.io/hostname: www.coursplus.ma
+      external-dns.alpha.kubernetes.io/ttl: "60"
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:761018851447:certificate/cccdef8b-2cb6-4bee-a6d0-f82af1e41adc
+      alb.ingress.kubernetes.io/backend-protocol: "HTTP"
     hosts:
-    - host: jitsi.local
+    - host: www.coursplus.ma
       paths: ['/']
     tls: []
-    #  - secretName: jitsi-web-certificate
-    #    hosts:
-    #      - jitsi.local
 
   # Useful for ingresses that don't support http-to-https redirect by themself, (namely: GKE),
   httpRedirect: false
 
   # When tls-termination by the ingress is not wanted, enable this and set web.service.type=Loadbalancer
   httpsEnabled: false
-
-  ## Resolver IP for nginx.
-  #
-  #  Starting with version `stable-8044`, the web container can
-  #  auto-detect the nameserver from /etc/resolv.conf.
-  #  Use this option if you want to override the nameserver IP.
-  #
-  # resolverIP: 10.43.0.10
 
   livenessProbe:
     httpGet:
@@ -167,8 +169,8 @@ jicofo:
       _logging_properties: ""
 
   xmpp:
-    password:
-    componentSecret:
+    password: <pwd>
+    componentSecret: <pwd_secret>
 
   livenessProbe:
     tcpSocket:
@@ -189,7 +191,7 @@ jicofo:
   extraEnvs: {}
 
   metrics:
-    enabled: false
+    enabled: true
     image:
       repository: prayagsingh/prometheus-jicofo-exporter
       tag: "1.3.2"
@@ -202,27 +204,12 @@ jvb:
 
   xmpp:
     user: jvb
-    password:
+    password: <jvb_password>
 
   ## Set public IP addresses to be advertised by JVB.
-  #  You can specify your nodes' IP addresses,
-  #  or IP addresses of proxies/LoadBalancers used for your
-  #  Jitsi Meet installation. Or both!
-  #
-  #  Note that only the first IP address will be used for legacy
-  #  `DOCKER_HOST_ADDRESS` environment variable.
-  #
-  # publicIPs:
-  #   - 1.2.3.4
-  #   - 5.6.7.8
-  ## Alternative option: auto-detect Node's external IP address.
-  #  Recommended for OCTO setups (with either NodePort service
-  #  or hostPort enabled) where every JVB pod should announce it's
-  #  own IP address only.
+  publicIPs:
+    - <stunner-public-ip>
   useNodeIP: false
-  ## Use a STUN server to help some users punch through some
-  #  especially nasty NAT setups. Usually makes sense for P2P calls.
-  stunServers: 'meet-jit-si-turnrelay.jitsi.net:443'
   ## Try to use the hostPort feature:
   #  (might not be supported by some clouds or CNI engines)
   useHostPort: false
@@ -240,13 +227,6 @@ jvb:
     type: ClusterIP
     externalTrafficPolicy: Cluster
     externalIPs: []
-    ## If type is set to LoadBalancer and the cluster is dual stack, ipFamilyPolicy can be set to enable dual stack
-    # addressing for the service.
-    # ipFamilyPolicy: PreferDualStack
-    ## Annotations to be added to the service (if LoadBalancer is used)
-    #  An example below is needed for DigitalOcean managed k8s setups
-    #  with a LoadBalancer service, so that DO's external LB can perform
-    #  health checks on JVB.
     annotations: {}
       # service.beta.kubernetes.io/do-loadbalancer-healthcheck-port: "8080"
       # service.beta.kubernetes.io/do-loadbalancer-healthcheck-protocol: "tcp"
@@ -279,7 +259,7 @@ jvb:
   extraEnvs: {}
 
   metrics:
-    enabled: false
+    enabled: true
     image:
       repository: docker.io/systemli/prometheus-jitsi-meet-exporter
       tag: 1.2.3
@@ -498,12 +478,12 @@ serviceAccount:
   name:
 
 xmpp:
-  domain: meet.jitsi
-  authDomain:
-  mucDomain:
-  internalMucDomain:
-  guestDomain:
-  hiddenDomain:
+  domain: www.coursplus.ma
+  authDomain:  auth.www.coursplus.ma
+  mucDomain:  muc.www.coursplus.ma
+  internalMucDomain: internal-muc.www.coursplus.ma
+  guestDomain: guest.www.coursplus.ma
+  hiddenDomain: hidden.www.coursplus.ma
 
 extraCommonEnvs: {}
 
@@ -552,8 +532,10 @@ prosody:
     #   mountPath: /prosody-plugins-custom/mod_measure_client_presence.lua
 
 
+
+
 stunner:
-  realm: "stunner.local"
+  realm: coursplus.ma
   logLevel: "all:DEBUG"
   
   gatewayClass:
@@ -563,12 +545,13 @@ stunner:
     name: "stunner-gatewayconfig"
   
   gateway:
-    name: "udp-gateway"
+    name: majid-gateway
     listenerName: "udp-listener"
     port: 3478
   
   udpRoute:
     name: "jitsi-media-plane"
+
   
   auth:
     secretName: "stunner-auth-secret"

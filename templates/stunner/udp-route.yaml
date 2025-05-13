@@ -1,0 +1,11 @@
+apiVersion: stunner.l7mp.io/v1
+kind: UDPRoute
+metadata:
+  name: {{ .Values.stunner.udpRoute.name | default "jitsi-media-plane" }}
+spec:
+  parentRefs:
+    - name: {{ .Values.stunner.gateway.name | default "udp-gateway" }}
+  rules:
+    - backendRefs:
+        - name: {{ include "jitsi-meet.jvb.fullname" . }}
+          namespace: {{ .Release.Namespace }}

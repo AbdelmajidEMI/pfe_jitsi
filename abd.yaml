@@ -1,0 +1,1067 @@
+---
+# Source: jitsi-meet/charts/prosody/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: coursplus-prosody
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: jitsi-meet/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: coursplus-jitsi-meet
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: jitsi-meet/charts/prosody/templates/envs-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: coursplus-prosody
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+type: Opaque
+data:
+---
+# Source: jitsi-meet/templates/jibri/xmpp-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: coursplus-prosody-jibri
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jibri
+type: Opaque
+data:
+---
+# Source: jitsi-meet/templates/jicofo/xmpp-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: coursplus-prosody-jicofo
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+type: Opaque
+data:
+  JICOFO_AUTH_USER: 'Zm9jdXM='
+  JICOFO_AUTH_PASSWORD: 'PHB3ZD4='
+  JICOFO_COMPONENT_SECRET: 'PHB3ZF9zZWNyZXQ+'
+---
+# Source: jitsi-meet/templates/jigasi/xmpp-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: coursplus-prosody-jigasi
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jigasi
+type: Opaque
+data:
+---
+# Source: jitsi-meet/templates/jvb/xmpp-secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: coursplus-prosody-jvb
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+type: Opaque
+data:
+  JVB_AUTH_USER: 'anZi'
+  JVB_AUTH_PASSWORD: 'PGp2Yl9wYXNzd29yZD4='
+---
+# Source: jitsi-meet/templates/stunner/secret.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: stunner-auth-secret
+type: Opaque
+stringData:
+  type: ephemeral
+  secret: abood
+---
+# Source: jitsi-meet/charts/prosody/templates/configmaps-cont-init.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-prosody-cont-inits
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+data:
+  10-config: |
+    # Using prosody /etc/cont-init.d/10-config from container image
+---
+# Source: jitsi-meet/charts/prosody/templates/configmaps-defaults.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-prosody-defaults
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+data:
+  prosody.cfg.lua: |
+    # Using prosody /default/prosody.cfg.lua from container image
+    
+  saslauthd.conf: |
+    # Using prosody /default/saslauthd.conf from container image
+    
+  jitsi-meet.cfg.lua: |
+    # Using prosody /default/conf.d/jitsi-meet.cfg.lua from container image
+---
+# Source: jitsi-meet/charts/prosody/templates/envs-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-prosody
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+data:
+---
+# Source: jitsi-meet/templates/common-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-prosody-common
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+data:
+  ENABLE_AUTH: "0"
+  ENABLE_GUESTS: "1"
+  PUBLIC_URL: www.coursplus.ma
+  XMPP_DOMAIN: www.coursplus.ma
+  XMPP_MUC_DOMAIN: muc.www.coursplus.ma
+  XMPP_AUTH_DOMAIN: auth.www.coursplus.ma
+  XMPP_GUEST_DOMAIN: guest.www.coursplus.ma
+  XMPP_HIDDEN_DOMAIN: hidden.www.coursplus.ma
+  XMPP_INTERNAL_MUC_DOMAIN: internal-muc.www.coursplus.ma
+  JICOFO_AUTH_USER: "focus"
+  LOG_LEVEL: 'info'
+  TURN_ENABLE: "true"
+  TURN_HOST: "<stunner-public-ip>"
+  TURN_PORT: "3478"
+  TURN_TRANSPORT: "udp"
+  TURN_CREDENTIALS: "abood"
+  XMPP_MUC_MODULES: "external_services"
+  ENABLE_COLIBRI_WEBSOCKET: 'true'
+  # TODO: rework into a proper regex or dynamic name list
+  ENABLE_COLIBRI_WEBSOCKET_UNSAFE_REGEX: '1'
+  ENABLE_XMPP_WEBSOCKET: 'true'
+  TZ: 'usa/us-east-1'
+---
+# Source: jitsi-meet/templates/jibri/configmaps-cont-init.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jibri-cont-inits
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jibri
+data:
+  10-config: |
+    # Using jibri /etc/cont-init.d/10-config from container image
+---
+# Source: jitsi-meet/templates/jibri/configmaps-defaults.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jibri-defaults
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jibri
+data:
+  jibri.conf: |
+    # Using jibri /default/jibri.conf from container image
+    
+  logging.properties: |
+    # Using jibri /default/logging.properties from container image
+    
+  autoscaler-sidecar.config: |
+    # Using jibri /default/autoscaler-sidecar.config from container image
+    
+  xorg-video-dummy.conf: |
+    # Using jibri /default/xorg-video-dummy.conf from container image
+---
+# Source: jitsi-meet/templates/jibri/configmaps-other.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jibri-other
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jibri
+data:
+  finalize.sh: |
+    # Not using a custom finalize.sh
+---
+# Source: jitsi-meet/templates/jicofo/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jicofo
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+data:
+  JVB_BREWERY_MUC: 'jvbbrewery'
+  XMPP_SERVER: 'coursplus-prosody.jitsi.svc.cluster.local'
+---
+# Source: jitsi-meet/templates/jicofo/configmaps-cont-init.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jicofo-cont-inits
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+data:
+  10-config: |
+    # Using jicofo /etc/cont-init.d/10-config from container image
+---
+# Source: jitsi-meet/templates/jicofo/configmaps-defaults.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jicofo-defaults
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+data:
+  jicofo.conf: |
+    # Using jicofo /default/jicofo.conf from container image
+    
+  logging.properties: |
+    # Using jicofo /default/logging.properties from container image
+---
+# Source: jitsi-meet/templates/jvb/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-jvb
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+data:
+  JVB_BREWERY_MUC: "jvbbrewery"
+  JVB_PORT: "10000"
+  JVB_STUN_SERVERS: "majid-gateway.jitsi.svc.cluster.local:3478"
+  JVB_TCP_HARVESTER_DISABLED: "1"
+  XMPP_SERVER: "coursplus-prosody.jitsi.svc.cluster.local"
+  COLIBRI_REST_ENABLED: "true"
+---
+# Source: jitsi-meet/templates/web/configmap-conffiles.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-web-conffiles
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web
+data:
+  custom-config.js: |
+  # Not providing /config/custom-config.js
+  
+  custom-interface_config.js: |
+  # Not providing /config/custom-interface_config.js
+  
+  default: |
+  # Using web /defaults/default from container image
+  
+  ffdhe2048.txt: |
+  # Using web /defaults/ffdhe2048.txt from container image
+  
+  interface_config.js: |
+  # Using web /defaults/interface_config.js from container image
+  
+  meet.conf: |
+  # Using web /defaults/meet.conf from container image
+  
+  nginx.conf: |
+  # Using web /defaults/nginx.conf from container image
+  
+  settings-config.js: |
+  # Using web /defaults/settings-config.js from container image
+  
+  ssl.conf: |
+  # Using web /defaults/ssl.conf from container image
+  
+  system-config.js: |
+  # Using web /defaults/system-config.js from container image
+---
+# Source: jitsi-meet/templates/web/configmap-init.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-web-init
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web
+data:
+  10-config: |
+  # Using web /etc/cont-init.d/10-config from container image
+---
+# Source: jitsi-meet/templates/web/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coursplus-jitsi-meet-web
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web
+data:
+  DISABLE_HTTPS: "1"
+  ENABLE_HTTP_REDIRECT: "0"
+  JICOFO_AUTH_USER: focus
+  XMPP_BOSH_URL_BASE: 'http://coursplus-prosody.jitsi.svc.cluster.local:5280'
+---
+# Source: jitsi-meet/charts/prosody/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: coursplus-prosody
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5280
+      protocol: TCP
+      name: tcp-bosh-insecure
+    - port: 5281
+      protocol: TCP
+      name: tcp-bosh-secure
+    - port: 5347
+      protocol: TCP
+      name: tcp-xmpp-component
+    - port: 5222
+      protocol: TCP
+      name: tcp-xmpp-c2
+    - port: 5269
+      protocol: TCP
+      name: tcp-xmpp-s2
+  selector:
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+---
+# Source: jitsi-meet/templates/jvb/metrics-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: coursplus-jitsi-meet-jvb-metrics
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+spec:
+  type: ClusterIP
+  ports:
+    - port: 9888
+      protocol: TCP
+      name: tcp-metrics
+  selector:
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/component: jvb
+---
+# Source: jitsi-meet/templates/jvb/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: coursplus-jitsi-meet-jvb
+  annotations:
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+spec:
+  type: ClusterIP
+  ports:
+    - port: 10000
+      protocol: UDP
+      name: rtp-udp
+  externalTrafficPolicy: Cluster
+  selector:
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/component: jvb
+---
+# Source: jitsi-meet/templates/web/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: coursplus-jitsi-meet-web
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/component: web
+---
+# Source: jitsi-meet/templates/jicofo/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coursplus-jitsi-meet-jicofo
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/component: jicofo
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jitsi-meet
+        app.kubernetes.io/instance: coursplus
+        app.kubernetes.io/component: jicofo
+      annotations:
+        checksum/config: f62dc6ef78f4bfbf410f1ceba24fbca7d8bebf4cd727d1b76d2cbaf9268c9857
+        checksum/secret: 6460cc77044eacadc3e856fc54634c3757883a319be98d7212d1f9923992c53e
+    spec:
+      serviceAccountName: coursplus-jitsi-meet
+      securityContext:
+        {}
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: custom-cont-inits
+        configMap:
+          defaultMode: 493
+          name: coursplus-jitsi-meet-jicofo-cont-inits
+          items:
+            - key: 10-config
+              path: 10-config
+      - name: custom-defaults
+        configMap:
+          name: coursplus-jitsi-meet-jicofo-defaults
+          items:
+            - key: jicofo.conf
+              path: jicofo.conf
+            - key: logging.properties
+              path: logging.properties
+      containers:
+        - name: jitsi-meet
+          securityContext:
+            {}
+          image: "jitsi/jicofo:stable-9909"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+          - secretRef:
+              name: coursplus-prosody-jicofo
+          - configMapRef:
+              name: coursplus-prosody-common
+          - configMapRef:
+              name: coursplus-jitsi-meet-jicofo
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              port: 8888
+          readinessProbe:
+            tcpSocket:
+              port: 8888
+          resources:
+            {}
+          volumeMounts:
+          # to support readOnlyRootFilesystem
+          - name: config
+            mountPath: /config
+        - name: metrics
+          image: "prayagsingh/prometheus-jicofo-exporter:1.3.2"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: metrics
+              containerPort: 9996
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9996
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            {}
+---
+# Source: jitsi-meet/templates/jvb/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coursplus-jitsi-meet-jvb
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/component: jvb
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jitsi-meet
+        app.kubernetes.io/instance: coursplus
+        app.kubernetes.io/component: jvb
+      annotations:
+        checksum/config: 24b48eef49a8c7793916a65bd91e1a7152791fb9d5a9ffb32f5e0268eb221473
+        checksum/secret: 76bffd7a8901618df235cadf9a2c3b2316d711eaca77106e1b283276193f6039
+    spec:
+      serviceAccountName: coursplus-jitsi-meet
+      securityContext:
+        {}
+      containers:
+        - name: jitsi-meet
+          securityContext:
+            {}
+          image: "jitsi/jvb:stable-9909"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+          - secretRef:
+              name: coursplus-prosody-jvb
+          - configMapRef:
+              name: coursplus-prosody-common
+          - configMapRef:
+              name: coursplus-jitsi-meet-jvb
+          env:
+          - name: DOCKER_HOST_ADDRESS
+            value: "<stunner-public-ip>"
+          - name: JVB_ADVERTISE_IPS
+            value: "<stunner-public-ip>"
+          - name: JVB_WS_SERVER_ID
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          ports:
+            - name: rtp-udp
+              containerPort: 10000
+              protocol: UDP
+            - name: colibri-ws-tcp
+              containerPort: 9090
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /about/health
+              port: 8080
+          readinessProbe:
+            httpGet:
+              path: /about/health
+              port: 8080
+          resources:
+            {}
+        - name: metrics
+          image: docker.io/systemli/prometheus-jitsi-meet-exporter:1.2.3
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            runAsUser: 10001
+          command:
+            - /prometheus-jitsi-meet-exporter
+            - -videobridge-url
+            - http://localhost:8080/colibri/stats
+          ports:
+            - containerPort: 9888
+              name: tcp-metrics
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 9888
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            limits:
+              cpu: 20m
+              memory: 32Mi
+            requests:
+              cpu: 10m
+              memory: 16Mi
+---
+# Source: jitsi-meet/templates/web/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coursplus-jitsi-meet-web
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/component: web
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: jitsi-meet
+        app.kubernetes.io/instance: coursplus
+        app.kubernetes.io/component: web
+      annotations:
+        checksum/config: 99ab4b47ca225efd11950061470fc54878a8b04abf2a8c669080ce831c1af3d2
+    spec:
+      serviceAccountName: coursplus-jitsi-meet
+      securityContext:
+        {}
+      containers:
+        - name: jitsi-meet
+          securityContext:
+            {}
+          image: "jitsi/web:stable-9909"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+          - configMapRef:
+              name: coursplus-jitsi-meet-web
+          - configMapRef:
+              name: coursplus-prosody-common
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+            - name: https
+              containerPort: 443
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+          resources:
+            {}
+          volumeMounts:
+          - name: config
+            mountPath: /config
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: custom-init
+        configMap:
+          defaultMode: 493
+          name: coursplus-jitsi-meet-web-init
+          items:
+            - key: 10-config
+              path: 10-config
+      - name: custom-conffiles
+        configMap:
+          name: coursplus-jitsi-meet-web-conffiles
+          items:
+            - key: custom-config.js
+              path: custom-config.js
+            - key: custom-interface_config.js
+              path: custom-interface_config.js
+            - key: default
+              path: default
+            - key: ffdhe2048.txt
+              path: ffdhe2048.txt
+            - key: interface_config.js
+              path: interface_config.js
+            - key: meet.conf
+              path: meet.conf
+            - key: nginx.conf
+              path: nginx.conf
+            - key: settings-config.js
+              path: settings-config.js
+            - key: ssl.conf
+              path: ssl.conf
+            - key: system-config.js
+              path: system-config.js
+---
+# Source: jitsi-meet/charts/prosody/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: coursplus-prosody
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  serviceName: "coursplus-prosody"
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: prosody
+      app.kubernetes.io/instance: coursplus
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: prosody
+        app.kubernetes.io/instance: coursplus
+      annotations:
+        si.jit.meet/hash-secret: "44136fa355b3678a1146ad16f7e8649e"
+        si.jit.meet/hash-configmap: "5ac44efd3cc505c600717260189a9530"
+    spec:
+      serviceAccountName: coursplus-prosody
+      securityContext:
+        {}
+      containers:
+        - name: prosody
+          securityContext:
+            {}
+          image: "jitsi/prosody:stable-9909"
+          imagePullPolicy: IfNotPresent
+          envFrom:
+          - configMapRef:
+              name: coursplus-prosody
+          - secretRef:
+              name: coursplus-prosody
+          - secretRef:
+              name: 'coursplus-prosody-jibri'
+          - secretRef:
+              name: 'coursplus-prosody-jicofo'
+          - secretRef:
+              name: 'coursplus-prosody-jigasi'
+          - secretRef:
+              name: 'coursplus-prosody-jvb'
+          - configMapRef:
+              name: 'coursplus-prosody-common'
+          ports:
+            - name: xmpp-c2s
+              containerPort: 5222
+              protocol: TCP
+            - name: xmpp-s2s
+              containerPort: 5269
+              protocol: TCP
+            - name: xmpp-component
+              containerPort: 5347
+              protocol: TCP
+            - name: bosh-insecure
+              containerPort: 5280
+              protocol: TCP
+            - name: bosh-secure
+              containerPort: 5281
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /http-bind
+              port: bosh-insecure
+          readinessProbe:
+            httpGet:
+              path: /http-bind
+              port: bosh-insecure
+          resources:
+            {}
+          volumeMounts:
+          - name: config
+            mountPath: /config
+          - name: prosody-data
+            mountPath: /config/data
+      volumes:
+      - name: config
+        emptyDir: {}
+      - name: custom-cont-inits
+        configMap:
+          defaultMode: 493
+          name: coursplus-prosody-cont-inits
+          items:
+            - key: 10-config
+              path: 10-config
+      - name: custom-defaults
+        configMap:
+          name: coursplus-prosody-defaults
+          items:
+            - key: prosody.cfg.lua
+              path: prosody.cfg.lua
+            - key: saslauthd.conf
+              path: saslauthd.conf
+            - key: jitsi-meet.cfg.lua
+              path: jitsi-meet.cfg.lua
+      - name: prosody-data
+        persistentVolumeClaim:
+          claimName: prosody-data
+  volumeClaimTemplates:
+  - metadata:
+      name: prosody-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      volumeMode: Filesystem
+      resources:
+        requests:
+          storage: 3G
+      storageClassName: "ebs-sc"
+---
+# Source: jitsi-meet/templates/stunner/gateway.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: majid-gateway
+spec:
+  gatewayClassName: stunner-gatewayclass
+  listeners:
+    - name: udp-listener
+      port: 3478
+      protocol: TURN-UDP
+---
+# Source: jitsi-meet/templates/stunner/gateway-class.yaml
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: stunner-gatewayclass
+spec:
+  controllerName: "stunner.l7mp.io/gateway-operator"
+  parametersRef:
+    group: "stunner.l7mp.io"
+    kind: GatewayConfig
+    name: stunner-gatewayconfig
+    namespace: jitsi
+  description: "STUNner is a WebRTC ingress gateway for Kubernetes"
+---
+# Source: jitsi-meet/templates/stunner/gateway-config.yaml
+apiVersion: stunner.l7mp.io/v1alpha1
+kind: GatewayConfig
+metadata:
+  name: stunner-gatewayconfig
+spec:
+  realm: coursplus.ma
+  logLevel: all:DEBUG
+  authRef:
+    name: stunner-auth-secret
+    namespace: jitsi
+  loadBalancerServiceAnnotations:
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /live
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8086"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: stickiness.enabled=true,stickiness.type=source_ip
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+---
+# Source: jitsi-meet/templates/jicofo/podmonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: coursplus-jitsi-meet-jicofo
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/component: jicofo
+  podMetricsEndpoints:
+  - port: metrics
+---
+# Source: jitsi-meet/templates/jvb/metrics-prometheus.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: coursplus-jitsi-meet-jvb
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+    release: prometheus-operator
+spec:
+  endpoints:
+    - port: tcp-metrics
+      path: /metrics
+      interval: 10s
+  selector:
+    matchLabels:
+      helm.sh/chart: jitsi-meet-1.5.0
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/version: "stable-9909"
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/component: jvb
+  namespaceSelector:
+    matchNames:
+      - jitsi
+---
+# Source: jitsi-meet/templates/stunner/udp-route.yaml
+apiVersion: stunner.l7mp.io/v1
+kind: UDPRoute
+metadata:
+  name: jitsi-media-plane
+spec:
+  parentRefs:
+    - name: majid-gateway
+  rules:
+    - backendRefs:
+        - name: coursplus-jitsi-meet-jvb
+          namespace: jitsi
+---
+# Source: jitsi-meet/charts/prosody/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "coursplus-prosody-test-connection"
+  labels:
+    helm.sh/chart: prosody-1.5.0
+    app.kubernetes.io/name: prosody
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['coursplus-prosody:5280/http-bind']
+  restartPolicy: Never
+---
+# Source: jitsi-meet/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "coursplus-jitsi-meet-web-test-connection"
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: web
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['coursplus-jitsi-meet-web:80']
+  restartPolicy: Never

@@ -14,6 +14,16 @@ data:
   XMPP_GUEST_DOMAIN: {{ .Values.xmpp.guestDomain | default (printf "guest.%s" (include "jitsi-meet.xmpp.domain" .)) }}
   XMPP_HIDDEN_DOMAIN: {{ .Values.xmpp.hiddenDomain | default (printf "hidden.%s" (include "jitsi-meet.xmpp.domain" .)) }}
   XMPP_INTERNAL_MUC_DOMAIN: {{ .Values.xmpp.internalMucDomain | default (printf "internal-muc.%s" (include "jitsi-meet.xmpp.domain" .)) }}
+  JICOFO_AUTH_USER: "focus"
+  LOG_LEVEL: 'info'
+  {{- if .Values.turn.enabled }}
+  TURN_ENABLE: "true"
+  TURN_HOST: {{ .Values.turn.host | quote }}
+  TURN_PORT: {{ .Values.turn.port | quote }}
+  TURN_TRANSPORT: {{ .Values.turn.transport | quote }}
+  TURN_CREDENTIALS: {{ .Values.stunner.auth.sharedSecret | quote }}
+  {{- end }}
+  XMPP_MUC_MODULES: "external_services"
   {{- if or .Values.websockets.colibri.enabled }}
   ENABLE_COLIBRI_WEBSOCKET: 'true'
   # TODO: rework into a proper regex or dynamic name list

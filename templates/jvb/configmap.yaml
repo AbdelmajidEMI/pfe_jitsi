@@ -5,17 +5,17 @@ metadata:
   labels:
     {{- include "jitsi-meet.jvb.labels" . | nindent 4 }}
 data:
-  JVB_BREWERY_MUC: '{{ .Values.jvb.breweryMuc }}'
-  JVB_PORT: '{{ .Values.jvb.UDPPort }}'
-  JVB_STUN_SERVERS: '{{.Values.jvb.stunServers }}'
-  JVB_TCP_HARVESTER_DISABLED: '1'
-  XMPP_SERVER: '{{ include "jitsi-meet.xmpp.server" . }}'
+  JVB_BREWERY_MUC: {{ .Values.jvb.breweryMuc | quote }}
+  JVB_PORT: {{ .Values.jvb.UDPPort | quote }}
+  JVB_STUN_SERVERS: {{ printf "%s.%s.svc.%s:%d" .Values.stunner.gateway.name .Release.Namespace .Values.global.clusterDomain (int .Values.stunner.gateway.port) | quote }}
+  JVB_TCP_HARVESTER_DISABLED: "1"
+  XMPP_SERVER: {{ include "jitsi-meet.xmpp.server" . | quote }}
   {{- range $key, $value := .Values.jvb.extraEnvs }}
   {{- if not (kindIs "invalid" $value) }}
-  {{ $key }}: {{ tpl $value $ | quote }}
+  {{ $key }}: {{ tpl (toString $value) $ | quote }}
   {{- end }}
   {{- end }}
-  COLIBRI_REST_ENABLED: 'true'
+  COLIBRI_REST_ENABLED: "true"
   {{- if .Values.octo.enabled }}
   ENABLE_OCTO: "1"
   JVB_OCTO_BIND_PORT: "4096"
