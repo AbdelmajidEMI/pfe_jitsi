@@ -3,11 +3,11 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: huawei-prosody
+  name: coursplus-prosody
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 ---
@@ -15,11 +15,11 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: huawei-jitsi-meet
+  name: coursplus-jitsi-meet
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 ---
@@ -27,11 +27,11 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: huawei-prosody
+  name: coursplus-prosody
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 type: Opaque
@@ -41,11 +41,11 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: huawei-prosody-jibri
+  name: coursplus-prosody-jibri
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jibri
@@ -56,11 +56,11 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: huawei-prosody-jicofo
+  name: coursplus-prosody-jicofo
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jicofo
@@ -74,11 +74,11 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: huawei-prosody-jigasi
+  name: coursplus-prosody-jigasi
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jigasi
@@ -89,11 +89,11 @@ data:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: huawei-prosody-jvb
+  name: coursplus-prosody-jvb
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jvb
@@ -116,11 +116,11 @@ stringData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-prosody-cont-inits
+  name: coursplus-prosody-cont-inits
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 data:
@@ -131,11 +131,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-prosody-defaults
+  name: coursplus-prosody-defaults
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 data:
@@ -152,11 +152,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-prosody
+  name: coursplus-prosody
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 data:
@@ -165,27 +165,27 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-prosody-common
+  name: coursplus-prosody-common
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 data:
   ENABLE_AUTH: "0"
   ENABLE_GUESTS: "1"
-  PUBLIC_URL: www.devopsmajid.com
-  XMPP_DOMAIN: www.devopsmajid.com
-  XMPP_MUC_DOMAIN: muc.www.devopsmajid.com
-  XMPP_AUTH_DOMAIN: auth.www.devopsmajid.com
-  XMPP_GUEST_DOMAIN: guest.www.devopsmajid.com
-  XMPP_HIDDEN_DOMAIN: hidden.www.devopsmajid.com
-  XMPP_INTERNAL_MUC_DOMAIN: internal-muc.www.devopsmajid.com
+  PUBLIC_URL: www.coursplus.ma
+  XMPP_DOMAIN: www.coursplus.ma
+  XMPP_MUC_DOMAIN: muc.www.coursplus.ma
+  XMPP_AUTH_DOMAIN: auth.www.coursplus.ma
+  XMPP_GUEST_DOMAIN: guest.www.coursplus.ma
+  XMPP_HIDDEN_DOMAIN: hidden.www.coursplus.ma
+  XMPP_INTERNAL_MUC_DOMAIN: internal-muc.www.coursplus.ma
   JICOFO_AUTH_USER: "focus"
   LOG_LEVEL: 'info'
   TURN_ENABLE: "true"
-  TURN_HOST: "www.devopsmajid.com"
+  TURN_HOST: "<stunner-public-ip>"
   TURN_PORT: "3478"
   TURN_TRANSPORT: "udp"
   TURN_CREDENTIALS: "abood"
@@ -200,11 +200,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jibri-cont-inits
+  name: coursplus-jitsi-meet-jibri-cont-inits
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jibri
@@ -216,11 +216,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jibri-defaults
+  name: coursplus-jitsi-meet-jibri-defaults
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jibri
@@ -241,11 +241,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jibri-other
+  name: coursplus-jitsi-meet-jibri-other
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jibri
@@ -257,27 +257,27 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jicofo
+  name: coursplus-jitsi-meet-jicofo
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jicofo
 data:
   JVB_BREWERY_MUC: 'jvbbrewery'
-  XMPP_SERVER: 'huawei-prosody.jitsi.svc.cluster.local'
+  XMPP_SERVER: 'coursplus-prosody.jitsi.svc.cluster.local'
 ---
 # Source: jitsi-meet/templates/jicofo/configmaps-cont-init.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jicofo-cont-inits
+  name: coursplus-jitsi-meet-jicofo-cont-inits
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jicofo
@@ -289,11 +289,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jicofo-defaults
+  name: coursplus-jitsi-meet-jicofo-defaults
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jicofo
@@ -308,31 +308,31 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-jvb
+  name: coursplus-jitsi-meet-jvb
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jvb
 data:
   JVB_BREWERY_MUC: "jvbbrewery"
   JVB_PORT: "10000"
-  JVB_STUN_SERVERS: "stunner-gateway.jitsi.svc.cluster.local:3478"
+  JVB_STUN_SERVERS: "majid-gateway.jitsi.svc.cluster.local:3478"
   JVB_TCP_HARVESTER_DISABLED: "1"
-  XMPP_SERVER: "huawei-prosody.jitsi.svc.cluster.local"
+  XMPP_SERVER: "coursplus-prosody.jitsi.svc.cluster.local"
   COLIBRI_REST_ENABLED: "true"
 ---
 # Source: jitsi-meet/templates/web/configmap-conffiles.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-web-conffiles
+  name: coursplus-jitsi-meet-web-conffiles
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: web
@@ -371,11 +371,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-web-init
+  name: coursplus-jitsi-meet-web-init
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: web
@@ -387,11 +387,11 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: huawei-jitsi-meet-web
+  name: coursplus-jitsi-meet-web
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: web
@@ -399,17 +399,17 @@ data:
   DISABLE_HTTPS: "1"
   ENABLE_HTTP_REDIRECT: "0"
   JICOFO_AUTH_USER: focus
-  XMPP_BOSH_URL_BASE: 'http://huawei-prosody.jitsi.svc.cluster.local:5280'
+  XMPP_BOSH_URL_BASE: 'http://coursplus-prosody.jitsi.svc.cluster.local:5280'
 ---
 # Source: jitsi-meet/charts/prosody/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: huawei-prosody
+  name: coursplus-prosody
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 spec:
@@ -432,17 +432,17 @@ spec:
       name: tcp-xmpp-s2
   selector:
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
 ---
 # Source: jitsi-meet/templates/jvb/metrics-service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: huawei-jitsi-meet-jvb-metrics
+  name: coursplus-jitsi-meet-jvb-metrics
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jvb
@@ -454,19 +454,19 @@ spec:
       name: tcp-metrics
   selector:
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/component: jvb
 ---
 # Source: jitsi-meet/templates/jvb/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: huawei-jitsi-meet-jvb
+  name: coursplus-jitsi-meet-jvb
   annotations:
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jvb
@@ -476,21 +476,21 @@ spec:
     - port: 10000
       protocol: UDP
       name: rtp-udp
-  externalTrafficPolicy: 
+  externalTrafficPolicy: Cluster
   selector:
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/component: jvb
 ---
 # Source: jitsi-meet/templates/web/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
-  name: huawei-jitsi-meet-web
+  name: coursplus-jitsi-meet-web
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: web
@@ -502,18 +502,18 @@ spec:
       name: http
   selector:
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/component: web
 ---
 # Source: jitsi-meet/templates/jicofo/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: huawei-jitsi-meet-jicofo
+  name: coursplus-jitsi-meet-jicofo
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jicofo
@@ -522,19 +522,19 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: jitsi-meet
-      app.kubernetes.io/instance: huawei
+      app.kubernetes.io/instance: coursplus
       app.kubernetes.io/component: jicofo
   template:
     metadata:
       labels:
         app.kubernetes.io/name: jitsi-meet
-        app.kubernetes.io/instance: huawei
+        app.kubernetes.io/instance: coursplus
         app.kubernetes.io/component: jicofo
       annotations:
-        checksum/config: 8e6651227381192a1cdead4dd836526238a2eb119168908ce21c17bd97171368
-        checksum/secret: a7b7c349320b7b2b179118dad19e6696510670e17d269f3da35a602cbda3427b
+        checksum/config: f62dc6ef78f4bfbf410f1ceba24fbca7d8bebf4cd727d1b76d2cbaf9268c9857
+        checksum/secret: 6460cc77044eacadc3e856fc54634c3757883a319be98d7212d1f9923992c53e
     spec:
-      serviceAccountName: huawei-jitsi-meet
+      serviceAccountName: coursplus-jitsi-meet
       securityContext:
         {}
       volumes:
@@ -543,13 +543,13 @@ spec:
       - name: custom-cont-inits
         configMap:
           defaultMode: 493
-          name: huawei-jitsi-meet-jicofo-cont-inits
+          name: coursplus-jitsi-meet-jicofo-cont-inits
           items:
             - key: 10-config
               path: 10-config
       - name: custom-defaults
         configMap:
-          name: huawei-jitsi-meet-jicofo-defaults
+          name: coursplus-jitsi-meet-jicofo-defaults
           items:
             - key: jicofo.conf
               path: jicofo.conf
@@ -559,15 +559,15 @@ spec:
         - name: jitsi-meet
           securityContext:
             {}
-          image: "swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-jicofo:stable-9909"
+          image: "jitsi/jicofo:stable-9909"
           imagePullPolicy: IfNotPresent
           envFrom:
           - secretRef:
-              name: huawei-prosody-jicofo
+              name: coursplus-prosody-jicofo
           - configMapRef:
-              name: huawei-prosody-common
+              name: coursplus-prosody-common
           - configMapRef:
-              name: huawei-jitsi-meet-jicofo
+              name: coursplus-jitsi-meet-jicofo
           ports:
             - name: http
               containerPort: 80
@@ -584,16 +584,31 @@ spec:
           # to support readOnlyRootFilesystem
           - name: config
             mountPath: /config
+        - name: metrics
+          image: "prayagsingh/prometheus-jicofo-exporter:1.3.2"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: metrics
+              containerPort: 9996
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9996
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          resources:
+            {}
 ---
 # Source: jitsi-meet/templates/jvb/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: huawei-jitsi-meet-jvb
+  name: coursplus-jitsi-meet-jvb
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: jvb
@@ -602,39 +617,39 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: jitsi-meet
-      app.kubernetes.io/instance: huawei
+      app.kubernetes.io/instance: coursplus
       app.kubernetes.io/component: jvb
   template:
     metadata:
       labels:
         app.kubernetes.io/name: jitsi-meet
-        app.kubernetes.io/instance: huawei
+        app.kubernetes.io/instance: coursplus
         app.kubernetes.io/component: jvb
       annotations:
-        checksum/config: 561d9cfec1d92b483d44f43d5964535c0ccd816ee1ecdc3c1204f126d15adfc7
-        checksum/secret: 5a0e47324e393b6e0b0a2f89f7e1c7c8552738e838c35424135ec0fd5b7ebe98
+        checksum/config: 24b48eef49a8c7793916a65bd91e1a7152791fb9d5a9ffb32f5e0268eb221473
+        checksum/secret: 76bffd7a8901618df235cadf9a2c3b2316d711eaca77106e1b283276193f6039
     spec:
-      serviceAccountName: huawei-jitsi-meet
+      serviceAccountName: coursplus-jitsi-meet
       securityContext:
         {}
       containers:
         - name: jitsi-meet
           securityContext:
             {}
-          image: "swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-jvb:stable-9909"
+          image: "jitsi/jvb:stable-9909"
           imagePullPolicy: IfNotPresent
           envFrom:
           - secretRef:
-              name: huawei-prosody-jvb
+              name: coursplus-prosody-jvb
           - configMapRef:
-              name: huawei-prosody-common
+              name: coursplus-prosody-common
           - configMapRef:
-              name: huawei-jitsi-meet-jvb
+              name: coursplus-jitsi-meet-jvb
           env:
           - name: DOCKER_HOST_ADDRESS
-            value: "www.devopsmajid.com"
+            value: "<stunner-public-ip>"
           - name: JVB_ADVERTISE_IPS
-            value: "www.devopsmajid.com"
+            value: "<stunner-public-ip>"
           - name: JVB_WS_SERVER_ID
             valueFrom:
               fieldRef:
@@ -657,7 +672,7 @@ spec:
           resources:
             {}
         - name: metrics
-          image: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/prometheus-jitsi-meet-exporter:1.2.3
+          image: docker.io/systemli/prometheus-jitsi-meet-exporter:1.2.3
           imagePullPolicy: IfNotPresent
           securityContext:
             runAsUser: 10001
@@ -687,11 +702,11 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: huawei-jitsi-meet-web
+  name: coursplus-jitsi-meet-web
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: web
@@ -700,31 +715,31 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: jitsi-meet
-      app.kubernetes.io/instance: huawei
+      app.kubernetes.io/instance: coursplus
       app.kubernetes.io/component: web
   template:
     metadata:
       labels:
         app.kubernetes.io/name: jitsi-meet
-        app.kubernetes.io/instance: huawei
+        app.kubernetes.io/instance: coursplus
         app.kubernetes.io/component: web
       annotations:
-        checksum/config: 668ee9975a873930132c47a3858b170c551e442e976645ff4ff78dea77764b5b
+        checksum/config: 99ab4b47ca225efd11950061470fc54878a8b04abf2a8c669080ce831c1af3d2
     spec:
-      serviceAccountName: huawei-jitsi-meet
+      serviceAccountName: coursplus-jitsi-meet
       securityContext:
         {}
       containers:
         - name: jitsi-meet
           securityContext:
             {}
-          image: "swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-web:stable-9909"
+          image: "jitsi/web:stable-9909"
           imagePullPolicy: IfNotPresent
           envFrom:
           - configMapRef:
-              name: huawei-jitsi-meet-web
+              name: coursplus-jitsi-meet-web
           - configMapRef:
-              name: huawei-prosody-common
+              name: coursplus-prosody-common
           ports:
             - name: http
               containerPort: 80
@@ -751,13 +766,13 @@ spec:
       - name: custom-init
         configMap:
           defaultMode: 493
-          name: huawei-jitsi-meet-web-init
+          name: coursplus-jitsi-meet-web-init
           items:
             - key: 10-config
               path: 10-config
       - name: custom-conffiles
         configMap:
-          name: huawei-jitsi-meet-web-conffiles
+          name: coursplus-jitsi-meet-web-conffiles
           items:
             - key: custom-config.js
               path: custom-config.js
@@ -784,53 +799,53 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: huawei-prosody
+  name: coursplus-prosody
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
 spec:
-  serviceName: "huawei-prosody"
+  serviceName: "coursplus-prosody"
   replicas: 1
   selector:
     matchLabels:
       app.kubernetes.io/name: prosody
-      app.kubernetes.io/instance: huawei
+      app.kubernetes.io/instance: coursplus
   template:
     metadata:
       labels:
         app.kubernetes.io/name: prosody
-        app.kubernetes.io/instance: huawei
+        app.kubernetes.io/instance: coursplus
       annotations:
         si.jit.meet/hash-secret: "44136fa355b3678a1146ad16f7e8649e"
         si.jit.meet/hash-configmap: "5ac44efd3cc505c600717260189a9530"
     spec:
-      serviceAccountName: huawei-prosody
+      serviceAccountName: coursplus-prosody
       securityContext:
         {}
       containers:
         - name: prosody
           securityContext:
             {}
-          image: "swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-prosody:stable-9909"
+          image: "jitsi/prosody:stable-9909"
           imagePullPolicy: IfNotPresent
           envFrom:
           - configMapRef:
-              name: huawei-prosody
+              name: coursplus-prosody
           - secretRef:
-              name: huawei-prosody
+              name: coursplus-prosody
           - secretRef:
-              name: 'huawei-prosody-jibri'
+              name: 'coursplus-prosody-jibri'
           - secretRef:
-              name: 'huawei-prosody-jicofo'
+              name: 'coursplus-prosody-jicofo'
           - secretRef:
-              name: 'huawei-prosody-jigasi'
+              name: 'coursplus-prosody-jigasi'
           - secretRef:
-              name: 'huawei-prosody-jvb'
+              name: 'coursplus-prosody-jvb'
           - configMapRef:
-              name: 'huawei-prosody-common'
+              name: 'coursplus-prosody-common'
           ports:
             - name: xmpp-c2s
               containerPort: 5222
@@ -868,13 +883,13 @@ spec:
       - name: custom-cont-inits
         configMap:
           defaultMode: 493
-          name: huawei-prosody-cont-inits
+          name: coursplus-prosody-cont-inits
           items:
             - key: 10-config
               path: 10-config
       - name: custom-defaults
         configMap:
-          name: huawei-prosody-defaults
+          name: coursplus-prosody-defaults
           items:
             - key: prosody.cfg.lua
               path: prosody.cfg.lua
@@ -895,45 +910,13 @@ spec:
       resources:
         requests:
           storage: 3G
-      storageClassName: "ssd"
----
-# Source: jitsi-meet/templates/ingress.yaml
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: huawei-jitsi-meet-web
-  labels:
-    helm.sh/chart: jitsi-meet-1.5.0
-    app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
-    app.kubernetes.io/version: "stable-9909"
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/component: web
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/backend-protocol: HTTP
-    nginx.ingress.kubernetes.io/ssl-redirect: "true"
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: "www.devopsmajid.com"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-            
-              service:
-                name: huawei-jitsi-meet-web
-                port:
-                  
-                  number: 80
+      storageClassName: "ebs-sc"
 ---
 # Source: jitsi-meet/templates/stunner/gateway.yaml
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: stunner-gateway
+  name: majid-gateway
 spec:
   gatewayClassName: stunner-gatewayclass
   listeners:
@@ -961,16 +944,71 @@ kind: GatewayConfig
 metadata:
   name: stunner-gatewayconfig
 spec:
-  realm: devopsmajid.com
+  realm: coursplus.ma
   logLevel: all:DEBUG
   authRef:
     name: stunner-auth-secret
     namespace: jitsi
   loadBalancerServiceAnnotations:
-    kubernetes.io/elb.health-check-flag: "on"
-    kubernetes.io/elb.health-check-option: '{"protocol":"HTTP","port":"8086","path":"/live","delay":"5","timeout":"10","max_retries":"3"}'
-    kubernetes.io/elb.session-affinity-mode: SOURCE_IP
-    kubernetes.io/elb.session-affinity-option: '{"persistence_timeout":"30"}'
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /live
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8086"
+    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
+    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
+    service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: stickiness.enabled=true,stickiness.type=source_ip
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+---
+# Source: jitsi-meet/templates/jicofo/podmonitor.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: coursplus-jitsi-meet-jicofo
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jicofo
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/component: jicofo
+  podMetricsEndpoints:
+  - port: metrics
+---
+# Source: jitsi-meet/templates/jvb/metrics-prometheus.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: coursplus-jitsi-meet-jvb
+  labels:
+    helm.sh/chart: jitsi-meet-1.5.0
+    app.kubernetes.io/name: jitsi-meet
+    app.kubernetes.io/instance: coursplus
+    app.kubernetes.io/version: "stable-9909"
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/component: jvb
+    release: prometheus-operator
+spec:
+  endpoints:
+    - port: tcp-metrics
+      path: /metrics
+      interval: 10s
+  selector:
+    matchLabels:
+      helm.sh/chart: jitsi-meet-1.5.0
+      app.kubernetes.io/name: jitsi-meet
+      app.kubernetes.io/instance: coursplus
+      app.kubernetes.io/version: "stable-9909"
+      app.kubernetes.io/managed-by: Helm
+      app.kubernetes.io/component: jvb
+  namespaceSelector:
+    matchNames:
+      - jitsi
 ---
 # Source: jitsi-meet/templates/stunner/udp-route.yaml
 apiVersion: stunner.l7mp.io/v1
@@ -979,21 +1017,21 @@ metadata:
   name: jitsi-media-plane
 spec:
   parentRefs:
-    - name: stunner-gateway
+    - name: majid-gateway
   rules:
     - backendRefs:
-        - name: huawei-jitsi-meet-jvb
+        - name: coursplus-jitsi-meet-jvb
           namespace: jitsi
 ---
 # Source: jitsi-meet/charts/prosody/templates/tests/test-connection.yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "huawei-prosody-test-connection"
+  name: "coursplus-prosody-test-connection"
   labels:
     helm.sh/chart: prosody-1.5.0
     app.kubernetes.io/name: prosody
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
   annotations:
@@ -1003,18 +1041,18 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['huawei-prosody:5280/http-bind']
+      args: ['coursplus-prosody:5280/http-bind']
   restartPolicy: Never
 ---
 # Source: jitsi-meet/templates/tests/test-connection.yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: "huawei-jitsi-meet-web-test-connection"
+  name: "coursplus-jitsi-meet-web-test-connection"
   labels:
     helm.sh/chart: jitsi-meet-1.5.0
     app.kubernetes.io/name: jitsi-meet
-    app.kubernetes.io/instance: huawei
+    app.kubernetes.io/instance: coursplus
     app.kubernetes.io/version: "stable-9909"
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/component: web
@@ -1025,5 +1063,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['huawei-jitsi-meet-web:80']
+      args: ['coursplus-jitsi-meet-web:80']
   restartPolicy: Never

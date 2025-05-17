@@ -81,7 +81,7 @@ readinessProbe:
 persistence:
   enabled: true
   size: 3G
-  storageClassName:  ebs-sc
+  storageClassName:  ssd
 
 nodeSelector: {}
 

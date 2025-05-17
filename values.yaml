@@ -17,6 +17,15 @@ global:
     #      name: '{{ include "prosody.fullname" . }}-overrides'
     #      optional: true
 
+turn:
+  enabled: true
+  host: "www.devopsmajid.com"  # STUNner gateway service
+  port: 3478
+  transport: "udp"
+  credentials:
+    secret: "stunner-auth-secret"  # Reference to existing secret
+    secretKey: "secret"            # Key in the secret containing shared secret
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -25,9 +34,9 @@ enableAuth: false
 enableGuests: true
 # Where Jitsi Web UI is made available
 # such as jitsi.example.com
-publicURL: ""
+publicURL: www.devopsmajid.com
 
-tz: Europe/Amsterdam
+tz: usa/us-east-1
 
 image:
   pullPolicy: IfNotPresent
@@ -45,15 +54,15 @@ image:
 websockets:
   ## Colibri (JVB signalling):
   colibri:
-    enabled: false
+    enabled: true
   ## XMPP (Prosody signalling):
   xmpp:
-    enabled: false
+    enabled: true
 
 web:
   replicaCount: 1
   image:
-    repository: jitsi/web
+    repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-web
 
   ## Override the image-provided configuration files:
   #  See https://github.com/jitsi/docker-jitsi-meet/tree/master/web/rootfs
@@ -77,40 +86,27 @@ web:
   service:
     type: ClusterIP
     port: 80
-    ## If you want to expose the Jitsi Web service directly
-    #  (bypassing the Ingress Controller), use this:
-    #
-    # type: NodePort
-    # nodePort: 30580
-    # port: 80
     externalIPs: []
 
   ingress:
-    enabled: false
-    # ingressClassName: "nginx-ingress-0"
-    annotations: {}
-      # kubernetes.io/tls-acme: "true"
+    enabled: true
+    ingressClassName: "nginx"
+    annotations:
+      kubernetes.io/ingress.class: nginx              # use the Nginx controller
+      nginx.ingress.kubernetes.io/ssl-redirect: "true" # HTTP → HTTPS redirect :contentReference[oaicite:0]{index=0}
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTP" # upstream speaks HTTP :contentReference[oaicite:1]{index=1}
+      # external-dns.alpha.kubernetes.io/hostname: play.devopsmajid.com # DNS entry :contentReference[oaicite:2]{index=2}
+      # external-dns.alpha.kubernetes.io/ttl: "60"      # 60-second TTL in DNS
     hosts:
-    - host: jitsi.local
+    - host: www.devopsmajid.com
       paths: ['/']
     tls: []
-    #  - secretName: jitsi-web-certificate
-    #    hosts:
-    #      - jitsi.local
 
   # Useful for ingresses that don't support http-to-https redirect by themself, (namely: GKE),
   httpRedirect: false
 
   # When tls-termination by the ingress is not wanted, enable this and set web.service.type=Loadbalancer
   httpsEnabled: false
-
-  ## Resolver IP for nginx.
-  #
-  #  Starting with version `stable-8044`, the web container can
-  #  auto-detect the nameserver from /etc/resolv.conf.
-  #  Use this option if you want to override the nameserver IP.
-  #
-  # resolverIP: 10.43.0.10
 
   livenessProbe:
     httpGet:
@@ -155,7 +151,7 @@ web:
 jicofo:
   replicaCount: 1
   image:
-    repository: jitsi/jicofo
+    repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-jicofo
 
   ## Override the image-provided configuration files:
   #  See https://github.com/jitsi/docker-jitsi-meet/tree/master/jicofo/rootfs
@@ -167,8 +163,8 @@ jicofo:
       _logging_properties: ""
 
   xmpp:
-    password:
-    componentSecret:
+    password: <pwd>
+    componentSecret: <pwd_secret>
 
   livenessProbe:
     tcpSocket:
@@ -191,38 +187,23 @@ jicofo:
   metrics:
     enabled: false
     image:
-      repository: prayagsingh/prometheus-jicofo-exporter
+      repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/prometheus-jicofo-exporter
       tag: "1.3.2"
     resources: {}
 
 jvb:
   replicaCount: 1
   image:
-    repository: jitsi/jvb
+    repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-jvb
 
   xmpp:
     user: jvb
-    password:
+    password: <jvb_password>
 
   ## Set public IP addresses to be advertised by JVB.
-  #  You can specify your nodes' IP addresses,
-  #  or IP addresses of proxies/LoadBalancers used for your
-  #  Jitsi Meet installation. Or both!
-  #
-  #  Note that only the first IP address will be used for legacy
-  #  `DOCKER_HOST_ADDRESS` environment variable.
-  #
-  # publicIPs:
-  #   - 1.2.3.4
-  #   - 5.6.7.8
-  ## Alternative option: auto-detect Node's external IP address.
-  #  Recommended for OCTO setups (with either NodePort service
-  #  or hostPort enabled) where every JVB pod should announce it's
-  #  own IP address only.
+  publicIPs:
+    - www.devopsmajid.com
   useNodeIP: false
-  ## Use a STUN server to help some users punch through some
-  #  especially nasty NAT setups. Usually makes sense for P2P calls.
-  stunServers: 'meet-jit-si-turnrelay.jitsi.net:443'
   ## Try to use the hostPort feature:
   #  (might not be supported by some clouds or CNI engines)
   useHostPort: false
@@ -238,15 +219,8 @@ jvb:
   service:
     enabled:
     type: ClusterIP
-    externalTrafficPolicy: Cluster
+    externalTrafficPolicy:
     externalIPs: []
-    ## If type is set to LoadBalancer and the cluster is dual stack, ipFamilyPolicy can be set to enable dual stack
-    # addressing for the service.
-    # ipFamilyPolicy: PreferDualStack
-    ## Annotations to be added to the service (if LoadBalancer is used)
-    #  An example below is needed for DigitalOcean managed k8s setups
-    #  with a LoadBalancer service, so that DO's external LB can perform
-    #  health checks on JVB.
     annotations: {}
       # service.beta.kubernetes.io/do-loadbalancer-healthcheck-port: "8080"
       # service.beta.kubernetes.io/do-loadbalancer-healthcheck-protocol: "tcp"
@@ -279,9 +253,9 @@ jvb:
   extraEnvs: {}
 
   metrics:
-    enabled: false
+    enabled: true
     image:
-      repository: docker.io/systemli/prometheus-jitsi-meet-exporter
+      repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/prometheus-jitsi-meet-exporter
       tag: 1.2.3
       pullPolicy: IfNotPresent
 
@@ -295,7 +269,7 @@ jvb:
 
     prometheusAnnotations: false
     serviceMonitor:
-      enabled: true
+      enabled: false
       selector:
         release: prometheus-operator
       interval: 10s
@@ -323,7 +297,7 @@ jigasi:
 
   replicaCount: 1
   image:
-    repository: jitsi/jigasi
+    repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-jigasi
 
   breweryMuc: jigasibrewery
 
@@ -425,7 +399,7 @@ jibri:
   #   type: RollingUpdate
 
   image:
-    repository: jitsi/jibri
+    repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-jibri
 
   podLabels: {}
   podAnnotations: {}
@@ -498,12 +472,12 @@ serviceAccount:
   name:
 
 xmpp:
-  domain: meet.jitsi
-  authDomain:
-  mucDomain:
-  internalMucDomain:
-  guestDomain:
-  hiddenDomain:
+  domain: www.devopsmajid.com
+  authDomain:  auth.www.devopsmajid.com
+  mucDomain:  muc.www.devopsmajid.com
+  internalMucDomain: internal-muc.www.devopsmajid.com
+  guestDomain: guest.www.devopsmajid.com
+  hiddenDomain: hidden.www.devopsmajid.com
 
 extraCommonEnvs: {}
 
@@ -523,7 +497,7 @@ prosody:
   - configMapRef:
       name: '{{ include "prosody.fullname" . }}-common'
   image:
-    repository: jitsi/prosody
+    repository: swr.cn-east-5.myhuaweicloud.com/abdelmajid_pfe/jitsi-prosody
     tag: stable-9909
 
   # service:
@@ -552,8 +526,10 @@ prosody:
     #   mountPath: /prosody-plugins-custom/mod_measure_client_presence.lua
 
 
+
+
 stunner:
-  realm: "stunner.local"
+  realm: devopsmajid.com
   logLevel: "all:DEBUG"
   
   gatewayClass:
@@ -563,12 +539,13 @@ stunner:
     name: "stunner-gatewayconfig"
   
   gateway:
-    name: "udp-gateway"
+    name: stunner-gateway
     listenerName: "udp-listener"
     port: 3478
   
   udpRoute:
     name: "jitsi-media-plane"
+
   
   auth:
     secretName: "stunner-auth-secret"
@@ -580,11 +557,8 @@ stunner:
     password: ""
   
   serviceAnnotations:
-    service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
-    service.beta.kubernetes.io/aws-load-balancer-type: external
-    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: ip
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
-    service.beta.kubernetes.io/aws-load-balancer-target-group-attributes: stickiness.enabled=true,stickiness.type=source_ip
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-path: /live
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-port: "8086"
-    service.beta.kubernetes.io/aws-load-balancer-healthcheck-protocol: HTTP
+    kubernetes.io/elb.session-affinity-mode: SOURCE_IP
+    kubernetes.io/elb.session-affinity-option: '{"persistence_timeout":"30"}'
+    kubernetes.io/elb.health-check-flag: "on"                   # enable ELB-side health probe :contentReference[oaicite:4]{index=4}
+    kubernetes.io/elb.health-check-option: >-                   # /live on 8086, 5-s interval
+      {"protocol":"HTTP","port":"8086","path":"/live","delay":"5","timeout":"10","max_retries":"3"}
