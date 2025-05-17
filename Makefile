@@ -1,29 +1,30 @@
+# -------- variables (override at call-time: `make NAME=demo`) ------------
 .DEFAULT_GOAL := template
-NAME := coursplus
-NAMESPACE := jitsi
-OUTFILE := abd.yaml
-VALUES := custom_values.yaml  # Ensure VALUES is defined
 
-ifeq ($(strip $(OUTFILE)),)
-OUT_FLAGS :=
-else
-OUT_FLAGS := > $(OUTFILE)
-endif
+# convert NAME to a valid helm release name
+NAME       ?= huawei
+SAFE_NAME := $(shell echo $(NAME) | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g;s/^-|-$//')
+NAMESPACE  ?= jitsi
+OUTFILE    ?= abd.yaml
+VALUES     ?= values.yaml     # path to custom values file
 
-ifeq ($(strip $(NAMESPACE)),)
-NS_FLAGS :=
-else
-NS_FLAGS := -n $(NAMESPACE)
-endif
+NS_FLAGS  := $(if $(NAMESPACE),-n $(NAMESPACE))
+VAL_FLAGS := $(if $(VALUES),-f $(VALUES))
+OUT_FLAGS := $(if $(OUTFILE),> $(OUTFILE))
 
-ifeq ($(strip $(VALUES)),)
-VAL_FLAGS :=
-else
-VAL_FLAGS := -f $(VALUES)
-endif
+# ---------------------------- targets ------------------------------------
+.PHONY: template tamplate package
 
+# render the chart into YAML
 template:
-	helm template ${NS_FLAGS} ${VAL_FLAGS} --release-name ${NAME} . ${OUT_FLAGS}
+	helm template $(NS_FLAGS) $(VAL_FLAGS) --release-name $(NAME) . $(OUT_FLAGS)
 
+# common miss-typing -> just run the real target
+tamplate: template
+
+# create a chart archive (.tgz)
 package:
-	echo "helm package ."
+	helm package .
+
+
+# helm template -n jitsi -f custom_values.yaml      --release-name huawei  . > abd.yaml
